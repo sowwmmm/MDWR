@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'The Oriental Silence';
+  src: url('../../../fonts/the_oriental_silence.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#darkweb h1 {
+  font-family: 'The Oriental Silence', sans-serif;
+}
+
+@font-face {
+  font-family: 'Coolvetica RG';
+  src: url('../../../fonts/coolvetica_rg.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#darkweb p {
+  font-family: 'Coolvetica RG', sans-serif;
+}

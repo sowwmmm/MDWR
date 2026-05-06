@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MDWR</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles/content.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+</head>
+
+<body class="bg-black text-white flex flex-col items-center min-h-screen px-4" id="darkweb">
+
+  <!-- Glass Title -->
+  <div class="mt-6 w-full max-w-xl backdrop-blur-md bg-white/5 border border-white/10 rounded-xl px-4 py-3 shadow-lg">
+    <h1 class="text-2xl sm:text-3xl font-bold text-red-500 border-l-4 border-red-600 pl-3">
+      Triggering MessageBox-es via the windows-rs API
+    </h1>
+  </div>
+
+  <!-- Content -->
+  <div class="mt-4 w-full max-w-xl p-4 space-y-4 text-gray-300 text-base leading-relaxed">
+    <p class="space-y-4">
+      MessageBoxA:
+      </p>
+        <ul class="list-disc list-inside text-gray-300 space-y-1">
+    <li><strong>A = ANSI</strong></li>
+    <li><strong>Uses 8-bit strings (char*)</strong></li>
+    <li><strong>Older, limited character support (bad for non-English text)</strong></li>
+    </ul>
+    <p class="space-y-4">
+    MessageBoxW: 
+    </p>
+            <ul class="list-disc list-inside text-gray-300 space-y-1">
+        <li><strong> W = Wide</strong></li>
+    <li><strong>Uses UTF-16 (wide strings) (wchar_t*)</strong></li>
+    <li><strong>Supports Unicode (all languages, emojis, etc.)</strong></li>
+        <li><strong>    ✅ Recommended</strong></li>
+    </ul>
+    
+    <!-- Code Box -->
+    <p>
+      MessageBoxA implementation:
+    </p>
+    <pre class="rounded-lg overflow-x-auto text-sm shadow-md">
+<code class="language-rust">
+use windows::Win32::UI::WindowsAndMessaging::{MessageBoxA, MB_OK};
+
+fn main() {
+    unsafe {
+        MessageBoxA(None, "Hello from Rust!", "Message", MB_OK);
+    }
+}
+</code>
+</pre>
+        <p>
+      MessageBoxW implementation:
+    </p>
+<pre class="rounded-lg overflow-x-auto text-sm shadow-md">
+<code class="language-rust">
+use windows::Win32::UI::WindowsAndMessaging::{MessageBoxW, MB_OK};
+use windows::core::w;
+
+fn main() {
+    unsafe {
+        MessageBoxW(None, w!("Hello Unicode 🌍"), w!("Title"), MB_OK);
+    }
+}
+</code>
+</pre>
+
+    <p>
+  Let’s break the code down step by step so you understand exactly what each part does.
+</p>
+
+<p>
+  <strong>use windows::Win32::UI::WindowsAndMessaging::{MessageBoxW, MB_OK};</strong>
+</p>
+
+<p>
+  This line imports the MessageBox function and a constant called MB_OK from the Windows API.
+  <br>
+  <strong>MessageBoxW</strong> is the function used to create the popup.
+  <br>
+  <strong>MB_OK</strong> tells Windows to show an "OK" button.
+</p>
+
+<p>
+  <strong>use windows::core::w;</strong>
+</p>
+
+<p>
+  This imports the <strong>w!</strong> macro.
+  <br>
+  It converts normal text into a format (UTF-16) that Windows expects for Unicode functions like MessageBoxW.
+</p>
+
+<p>
+  <strong>fn main() { }</strong>
+</p>
+
+<p>
+  This is the main function — the entry point of the program.
+  <br>
+  When you run the program, execution starts here.
+</p>
+
+<p>
+  <strong>unsafe { }</strong>
+</p>
+
+<p>
+  Windows API functions are considered unsafe in Rust.
+  <br>
+  This block allows calling low-level system functions that Rust cannot guarantee are safe.
+</p>
+
+<p>
+  <strong>MessageBoxW(...)</strong>
+</p>
+
+<p>
+  This is the actual function call that creates the popup window.
+</p>
+
+<p>
+  <strong>None</strong>
+</p>
+
+<p>
+  This is the window handle (HWND).
+  <br>
+  Passing None means the message box is not attached to any specific window.
+</p>
+
+<p>
+  <strong>w!("Hello from Rust!")</strong>
+</p>
+
+<p>
+  This is the message text shown inside the popup.
+  <br>
+  The <strong>w!</strong> macro converts it into the correct Unicode format.
+</p>
+
+<p>
+  <strong>w!("Message")</strong>
+</p>
+
+<p>
+  This is the title of the message box (shown at the top).
+</p>
+
+<p>
+  <strong>MB_OK</strong>
+</p>
+
+<p>
+  This defines the buttons shown in the popup.
+  <br>
+  In this case, it shows only a single "OK" button.
+</p>
+
+<p>
+  After this function runs, Windows displays the popup and waits until the user clicks OK.
+</p>
+
+<p>
+  Once the button is pressed, the function returns a value and the program continues (or exits if nothing else is written).
+</p>
+</div>
+<script>
+  hljs.highlightAll();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+@font-face {
+  font-family: 'Mocha Choco';
+  src: url('../../../../fonts/mocha-choco.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#modules h2 {
+  font-family: 'Mocha Choco', sans-serif;
+}
+
+@font-face {
+  font-family: 'Akira Expanded';
+  src: url('../../../../fonts/akira_expanded.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#modules p, h1 {
+  font-family: 'Akira Expanded', sans-serif;
+}

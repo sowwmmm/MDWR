@@ -1,0 +1,26 @@
+@font-face {
+  font-family: 'Mocha Choco';
+  src: url('fonts/mocha-choco.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#homepage h1 {
+  font-family: 'Mocha Choco', sans-serif;
+}
+
+@font-face {
+  font-family: 'Akira Expanded';
+  src: url('fonts/akira_expanded.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#homepage h2, p {
+  font-family: 'Akira Expanded', sans-serif;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 200% }
+  100% { background-position: 0% }
+}
